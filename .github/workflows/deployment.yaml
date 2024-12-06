@@ -12,15 +12,16 @@ jobs:
       SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
 
     steps:
+#Step-1: Using a Supabase loader from the Github Marketplace
     - uses: actions/checkout@v3
-
+#Step-2: Loading data from local to S3 - Trigger based on New Pushes to repository
     - uses: brendenehlers/supabase-storage-upload@v1
       id: test-action
       with:
         repo_directory: ${{ github.workspace }}
         upload_directory_path: 'data'
         bucket_name: 'S3'
-
+#Step-3: Printing S3 load success message
     - name: Print Output
       id: output
       run: echo "${{ steps.test-action.outputs.message }}"
